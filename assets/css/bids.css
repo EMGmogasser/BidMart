@@ -1,0 +1,258 @@
+.top_bidders {
+  width: clamp(500px, calc(400px + 15vw), 700px);
+  margin: 30px auto;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: var(--shadow2);
+}
+
+.top_bidders h2 {
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--primary);
+}
+
+.top_bidder {
+  position: absolute;
+  background-color: var(--background);
+  display: flex;
+  visibility: hidden;
+  align-items: center;
+  height: 70px;
+  width: 90%;
+  transition: 2s ease-in-out all;
+  transform: translateY(350%);
+}
+
+.top_bidder .img {
+  position: relative;
+  box-shadow: var(--shadow);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 30px;
+  margin-left: 5px;
+}
+
+.top_bidder .img img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  transform: translateX(-50%);
+  object-fit: contain;
+}
+
+.top_bidder p.rank {
+  display: block;
+  width: 30px;
+  font-size: 1.4rem;
+  color: var(--primary);
+}
+
+.top_bidder p.name {
+  font-size: 1.2rem;
+}
+
+.top_bidder p.bid_price {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary);
+  margin-left: auto; /* Push price to the right */
+}
+
+/* Styles for rank 1 */
+.top_bidder[data-rank="1"] .img {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+  margin-left: 0; /* Reset left margin */
+}
+
+.top_bidder[data-rank="1"] p.name {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.top_bidder[data-rank="1"] p.bid_price {
+  font-size: 1.55rem;
+  font-weight: bold;
+}
+
+.bidders {
+  position: relative;
+  overflow: hidden;
+  height: 225px;
+  margin-top: 15px;
+}
+.top_bidder[data-set="false"]{
+  visibility:hidden !important ;
+}
+
+.top_bidder[data-rank="1"] {
+  z-index: 3;
+  transform: translateY(0%);
+  top: 0;
+
+}
+.top_bidder[data-rank="2"] {
+  z-index: 2;
+  top: 0;
+  transform: translateY(105%);
+}
+.top_bidder[data-rank="3"] {
+  z-index: 1;
+  top: 0;
+  transform: translateY(210%);
+}
+
+/* poster */
+.poster {
+  display: flex;
+  justify-content: center;
+  margin: 70px auto;
+  align-items: center;
+  width: 85vw;
+  max-width: 1000px;
+  gap: 80px;
+}
+.poster h2 {
+  color: var(--primary);
+  font-size: 1.7rem;
+  line-height: 1.8rem;
+}
+
+.poster .img {
+  position: relative;
+  min-width: 250px;
+  width: clamp(250px, calc((100vw - 700px) / 7 + 250px), 350px);
+  min-height: 100px;
+  border-radius: 15px;
+  box-shadow: var(--shadow2);
+  overflow: hidden;
+}
+
+.poster img{
+  width: 100%;
+}
+
+.poster .content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.25rem;
+}
+
+.poster .fixed {
+  font-size: 1.15rem;
+  font-weight: bold;
+}
+.poster .bidders_number {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+/* Media Queries (Mobile-First Approach) */
+
+@media (max-width: 450px) {
+  .top_bidders h2 {
+    font-size: 1.4rem;
+  }
+
+  .top_bidder {
+    width: 100%; /* Ensure full width on small screens */
+  }
+
+  .top_bidder .img {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+  }
+
+  .top_bidder[data-rank="1"] .img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+  }
+
+  .top_bidder p.rank {
+    width: 15px;
+    font-size: 1.5rem; /* Consistent rank size */
+  }
+
+  .top_bidder p.name {
+    font-size: 1.1rem;
+  }
+
+  .top_bidder[data-rank="1"] p.name {
+    font-size: 1.2rem;
+  }
+
+  .top_bidder p.bid_price {
+    font-size: 1rem;
+  }
+
+  .top_bidder[data-rank="1"] p.bid_price {
+    font-size: 1.1rem;
+  }
+  .poster h2 {
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+  }
+}
+
+@media (min-width: 451px) and (max-width: 767px) {
+  .top_bidder {
+    width: 100%;
+  }
+
+  .top_bidder p.rank {
+    font-size: 1.5rem; /* Consistent rank size */
+  }
+
+  .top_bidder p.name {
+    font-size: 1.1rem;
+  }
+  .top_bidder[data-rank="1"] p.name {
+    font-size: 1.2rem;
+  }
+
+  .top_bidder p.bid_price {
+    font-size: 1.3rem;
+  }
+  .top_bidder[data-rank="1"] p.bid_price {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .top_bidders {
+    width: 85vw;
+    padding: 20px;
+  }
+  .poster {
+    gap: 40px;
+    width: 85vw;
+    flex-direction: column;
+  }
+  .poster h2 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .poster .bidders_number,
+  .poster a {
+    margin: auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .top_bidder {
+    width: 100%;
+  }
+  .poster {
+    gap: 60px;
+  }
+}

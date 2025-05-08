@@ -1,0 +1,196 @@
+/* === Root Variables === */
+:root {
+  --special-border: blue;
+  --special-color: var(--color-primary);
+}
+
+/* === General Styles === */
+h1 {
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1rem;
+}
+
+/* === OTP Container === */
+.otp-container {
+  width: 50%;
+  margin-top: 20vh;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* === OTP Input Styles === */
+.otp-input {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.otp-input input {
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  font-size: 2.5rem;
+  border: 1px solid var(--primary);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.otp-input input:focus {
+  border-color: var(--special-border);
+  outline: none;
+}
+
+/* Remove Spin Buttons for Number Inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* For Firefox */
+}
+
+/* === Verify Button === */
+button#verify {
+  background-color: var(--primary);
+  border: none;
+  color: white;
+  width: 200px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-inline: auto;
+  transition: all 0.3s ease;
+}
+
+button#verify:hover {
+  background-color: var(--btn-hover);
+}
+
+button#verify:disabled {
+  background-color: #cccccc;
+  border-color: #999999;
+  color: #666666;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* === Timer and Expiry Styles === */
+#timer {
+  font-size: 1rem;
+  color: var(--special-color);
+  font-weight: 500;
+}
+
+button:disabled #timer {
+  color: #999999;
+}
+
+.expired {
+  animation: pulse 2s infinite;
+  color: #ff4444;
+}
+
+/* === Resend Link === */
+.resend-text {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.resend-link {
+  color: var(--special-color);
+  background-color: unset;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.resend-link:hover {
+  color: var(--btn-hover);
+  text-decoration: underline;
+}
+
+.resend-link:disabled {
+  color: #999999 !important;
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
+#email {
+  color: var(--special-color);
+  font-weight: 500;
+}
+
+/* === Animations === */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* === Responsive Styles === */
+@media (max-width: 1200px) {
+  p {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 850px) {
+  .otp-container {
+    width: 100%;
+    margin: 0;
+    height: 100dvh;
+  }
+
+  p {
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  button#verify {
+    width: 150px;
+    height: 45px;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .otp-input input {
+    width: 70px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  p,
+  .resend-text {
+    font-size: 13px;
+  }
+
+  .otp-input input {
+    width: 60px;
+    height: 70px;
+  }
+}

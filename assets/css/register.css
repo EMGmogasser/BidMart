@@ -1,0 +1,313 @@
+/* === General Styles === */
+body {
+  background-color: var(--background2) !important;
+  font-family: var(--font-montserrat);
+}
+
+h1 {
+  font-size: 25px;
+  margin-bottom: 25px;
+}
+
+p {
+  font-size: 22px;
+  color: var(--text-color);
+  margin-bottom: 30px;
+}
+
+button:hover {
+  background-color: var(--btn-hover);
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* === Layout Containers === */
+.logo {
+  width: 70px;
+}
+
+.register-container {
+  display: flex;
+  position: relative;
+}
+
+.form-container {
+  width: 50%;
+  padding: 30px;
+}
+
+.image-container {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100dvh;
+  background-color: var(--background);
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* === Form Styles === */
+form {
+  padding-inline: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 450px;
+  min-width: 200px;
+}
+
+.input-group i {
+  font-size: 22px;
+  position: absolute;
+  left: 18px;
+  top: 30px;
+  transform: translateY(-50%);
+  color: #626262;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 20px 10px 20px 50px;
+  font-size: 16px;
+  background-color: rgba(217, 217, 217, 0.3);
+  border: 1px solid var(--background-negative);
+  border-radius: 5px;
+}
+
+.input-group input:focus {
+  outline: none;
+}
+
+.input-group.invalid input {
+  border-color: red;
+}
+
+.input-group.valid input {
+  border-color: green;
+}
+
+[data-theme="dark"] .input-group input {
+  background-color: #eee;
+}
+
+.signup-btn {
+  width: 200px;
+  padding: 20px;
+  background-color: var(--primary);
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+i.toggle-password {
+  left: unset;
+  right: 15px;
+}
+
+/* === Status Messages === */
+.status-messages {
+  display: none;
+}
+
+.status-messages.visible {
+  display: block;
+  transform: translateY(10px);
+  margin: 0;
+}
+
+.status-messages p {
+  margin: 0 0 0 20px;
+  font-size: 14px;
+  line-height: 1.1rem;
+  text-align: start;
+}
+
+.status-messages p.invalid {
+  color: red;
+}
+
+.status-messages p.valid {
+  color: green;
+}
+
+[data-theme="dark"] .status-messages p.invalid {
+  color: rgb(255, 49, 49);
+}
+
+[data-theme="dark"] .status-messages p.valid {
+  color: rgb(5, 212, 5);
+}
+
+/* === Login Text === */
+.login-text {
+  color: var(--text-color);
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.login-text a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
+
+/* === Responsive Styles === */
+@media (max-height: 800px) {
+  .form-container {
+    padding: 20px;
+  }
+  h1 {
+    margin-bottom: 15px;
+  }
+  .input-group {
+    margin-bottom: 15px;
+  }
+  .input-group input,
+  .signup-btn {
+    padding-block: 15px;
+  }
+  .input-group i {
+    font-size: 18px;
+    top: 25px;
+  }
+  .login-text {
+    margin-block: 10px;
+  }
+}
+
+@media (max-width: 1200px) {
+  form {
+    padding-inline: 40px;
+  }
+  .input-group {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1000px) {
+  p {
+    font-size: 18px;
+  }
+  form {
+    padding: 0;
+  }
+}
+
+@media (max-width: 850px) {
+  .logo {
+    display: block;
+    margin: auto;
+    transform: translateY(-10px);
+  }
+  form {
+    width: 70vw;
+    margin: auto;
+    padding-inline: 0;
+  }
+  .form-container {
+    width: unset;
+    margin: auto;
+    padding: 30px;
+  }
+  .image-container {
+    display: none;
+  }
+  .input-group {
+    width: 400px;
+  }
+  h1,
+  p {
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .input-group {
+    width: 320px;
+  }
+  p {
+    font-size: 18px;
+  }
+  form {
+    width: 85vw;
+  }
+}
+
+@media (max-width: 400px) {
+  .input-group {
+    width: 70vw;
+  }
+  input::placeholder {
+    font-size: 14px;
+  }
+  .status-messages p {
+    font-size: 12px;
+  }
+  h1 {
+    font-size: 20px;
+  }
+}
+
+/* === Custom Components === */
+/* Sweet Alert Customization */
+.swal-footer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.swal-button.error {
+  color: #f27474 !important;
+}
+
+.swal-text {
+  text-align: center;
+}
+
+/* IntlTelInput */
+.iti {
+  width: 100% !important;
+}
+
+.iti__selected-flag {
+  padding: 0 6px 0 15px;
+}
+
+.iti__country-name,
+.iti__dial-code {
+  font-size: 12px;
+  text-wrap: wrap;
+}
+
+.iti__country-list {
+  min-width: 200px;
+  width: 70vw;
+  max-width: 300px;
+  overflow-x: hidden;
+  color: black;
+}
+.reset{
+  color: var(--color-primary);
+    float: right;
+    margin: 7px 0;
+}

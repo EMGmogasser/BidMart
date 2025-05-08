@@ -1,0 +1,39 @@
+echo -n "merna" | md5sum | awk '{print $1}' >> hashes.txt
+echo -n "merna" | sha1sum | awk '{print $1}' >> hashes.txt
+echo -n "merna" | sha256sum | awk '{print $1}' >> hashes.txt
+
+------------------------------------------------------------------------
+cat hashes.txt
+------------------------------------------------------------------------
+john --format=raw-md5 hashes.txt --wordlist=rockyou.txt >> wordlist.txt
+john --format=raw-sha1 hashes.txt --wordlist=rockyou.txt >> wordlist.txt
+john --format=raw-sha256 hashes.txt --wordlist=rockyou.txt >> wordlist.txt
+------------------------------------------------------------------------
+
+clear
+
+------------------------------------------------------------------------
+echo -n "merna1" | md5sum | awk '{print $1}' >> hashesL.txt
+echo -n "merna12" | sha1sum | awk '{print $1}' >> hashesL.txt
+echo -n "merna123" | sha256sum | awk '{print $1}' >> hashesL.txt
+------------------------------------------------------------------------
+cat hashesL.txt
+------------------------------------------------------------------------
+john --incremental --format=raw-md5 hashesL.txt >> incremental.txt 
+john --incremental --format=raw-sha1 hashesL.txt >> incremental.txt 
+john --incremental --format=raw-sha256 hashesL.txt >> incremental.txt
+------------------------------------------------------------------------
+خدي اسكرين للشاشة وبعدها 
+clear
+
+------------------------------------------------------------------------
+echo "merna1:$(echo -n 'merna11' | md5sum | awk '{print $1}')" >> userhash.txt
+echo "merna1:$(echo -n 'merna12' | sha1sum | awk '{print $1}')" >> userhash.txt
+echo "merna1:$(echo -n 'merna13' | sha256sum | awk '{print $1}')" >> userhash.txt
+------------------------------------------------------------------------
+cat userhash.txt
+------------------------------------------------------------------------
+john --single --format=raw-md5 userhash.txt >> single.txt 
+john --single --format=raw-sha1 userhash.txt >> single.txt 
+john --single --format=raw-sha256 userhash.txt >> single.txt
+

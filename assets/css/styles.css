@@ -1,0 +1,152 @@
+/* ===============================
+    General Styles 
+=============================== */
+:root {
+  --close:#e80404;
+  --primary: #a15100;
+  --mainColor: #a15100;
+  --color-primary: #d56b00;
+  --text-color: black;
+  --background-negative: #818181;
+  --text-color2: #818181;
+  --background: white;
+  --btn-text-color: white;
+  --background2: #fffbf1;
+  --btn-hover: #814200;
+  --border-gray: 1px solid rgba(128, 128, 128, 0.2);
+  --shadow: 4px 6px 4px 0 rgba(0, 0, 0, 0.25);
+  --shadow2: 0px 0px 15px 8px #b1b1b1;
+  --theme-transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  --font-montserrat: "Montserrat", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-color);
+  overflow-x: hidden;
+  /* font-family: "Montserrat", sans-serif; */
+}
+
+.font-montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --text-color: white;
+  --text-color2: #d0d0d0;
+  --background: #222;
+  --background2: #282828;
+  --background-negative: #707070;
+  --shadow: 4px 6px 4px 0 rgba(39, 39, 39, 0.25);
+  --shadow2: 0px 0px 20px 5px #444;
+}
+
+/* ===============================
+    astron-Container 
+=============================== */
+.astron-container {
+  position: relative;
+  width: 90vw;
+  margin: 50px auto;
+}
+
+/* ===============================
+    Buttons 
+=============================== */
+.primary-btn {
+  background-color: var(--primary);
+  color: var(--btn-text-color);
+  padding: 10px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 22px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.primary-btn:hover {
+  background-color: var(--btn-hover);
+}
+
+@media (max-width: 1200px) {
+  .primary-btn {
+    font-size: 18px;
+    padding: 5px 25px;
+  }
+}
+
+.categories_inner{
+  margin-inline: 2rem;
+}
+
+.products-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* spinner */
+.full-c {
+  backdrop-filter: blur(1px);
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background: #0000000d;
+}
+
+#loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1000;
+  background-color: white;
+  border-radius: 18px;
+  width: max-content;
+  max-width: 90vw;
+  padding: 30px;
+  box-shadow: 3px 4px 13px 0 #0000005c;
+}
+
+button.close{
+    cursor: pointer;
+    font-family: 'FontAwesome';
+    font-weight: bold;
+    position: absolute;
+    color:var(--close);
+    right: 15px;
+    top: 15px;
+    border: unset;
+    background: unset;
+    font-size: 1.1rem;
+}
+
+input[type="number"] {
+  /* For Firefox */
+  -moz-appearance: textfield;
+  
+  /* For other browsers */
+  appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

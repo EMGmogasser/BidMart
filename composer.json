@@ -1,0 +1,11 @@
+{
+    "require": {
+        "giggsey/libphonenumber-for-php": "^8.13",
+        "zircote/swagger-php": "^5.0",
+        "doctrine/annotations": "^2.0",
+        "nikic/php-parser": "^5.4",
+        "guzzlehttp/guzzle": "^7.9",
+        "twilio/sdk": "^8.3",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

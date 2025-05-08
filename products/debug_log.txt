@@ -1,0 +1,13 @@
+Array
+(
+    [photo] => Array
+        (
+            [name] => WhatsApp Image 2025-02-18 at 7.42.07 AM.jpeg
+            [full_path] => WhatsApp Image 2025-02-18 at 7.42.07 AM.jpeg
+            [type] => image/jpeg
+            [tmp_name] => /tmp/phpsm77r39b22da0E8OL7T
+            [error] => 0
+            [size] => 41088
+        )
+
+)

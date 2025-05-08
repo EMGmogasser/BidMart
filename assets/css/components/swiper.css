@@ -1,0 +1,130 @@
+/* ===============================
+    Swiper Styles
+=============================== */
+
+.swiper {
+  position: relative;
+  width: calc(100% - 4rem);
+  height: fit-content;
+}
+
+.swiper-wrapper {
+  min-height: 350px;
+}
+
+.swiper-slide .img {
+  min-height: 300px;
+  position: relative;
+}
+
+.swiper-slide .loading-img {
+  position: relative;
+  border-bottom: 1px solid var(--border-gray);
+}
+
+.swiper-slide .loading-img img {
+  visibility: hidden;
+}
+
+.loading .swiper-wrapper,
+.loading .swiper-navigation {
+  visibility: hidden;
+}
+
+.loading .swiper-loader {
+  min-height: 300px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 50px;
+  background-color: var(--background);
+}
+
+.swiper-wrapper.news-bar {
+  transition-timing-function: linear !important; /* Ensures linear timing */
+}
+
+/* .swiper.products-container {
+  width: calc(100% - 100px);
+} */
+
+/* Swiper Navigation */
+.swiper-navigation {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* Prevent blocking interactions */
+}
+
+.button-next,
+.button-prev {
+  pointer-events: auto; /* Enable interaction with buttons */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  width: 1.8em;
+  height: 1.8em;
+  background-color: var(--background, white);
+  color: var(--primary);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+}
+
+.button-next:hover,
+.button-prev:hover {
+  background-color: var(--primary, #a15100);
+  color: var(--btn-text-color, white);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
+}
+
+.button-next:active,
+.button-prev:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* spinner style */
+.spinner{
+  visibility: hidden;
+}
+.loading .spinner {
+  visibility: visible;
+  position: absolute;
+  top: calc(50% - 75px);
+  left: calc(50% - 50px);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid var(--primary);
+  border-top-color: var(--background);
+  animation: loading 1s linear infinite;
+}
+
+.loading-img .spinner {
+  position: absolute;
+  top: calc(50% - 35px);
+  left: calc(50% - 35px);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 6px solid var(--primary);
+  border-top-color: var(--background);
+  animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
