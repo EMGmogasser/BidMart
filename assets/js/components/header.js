@@ -160,7 +160,7 @@ navOverlay.addEventListener("click", () => {
     link.classList.remove("active");
   });
 
-  document.querySelectorAll(`.nav-item[href="${path}"]`).forEach((navItem) => {
+  document.querySelectorAll(`.nav-item[id="${path}"]`).forEach((navItem) => {
     navItem.classList.add("active");
   });
 })();

@@ -36,6 +36,8 @@
         .cat img {
             height: 65%;
             width: auto;
+            filter: brightness(0.2);
+
             /* max-width: unset;
             max-height: unset;
             min-width: unset; */

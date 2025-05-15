@@ -5,13 +5,11 @@ const categoriesContainer = document.querySelector(".categories-list");
 const productsContainer = document.querySelector(".products-grid");
 const emptyDOM = document.querySelector(".empty");
 let page=1
+// Get the current URL
+const href = new URL(window.location.href);
+const id = href.searchParams.get('id');
 
 async function fetchProductData() {
-    // Get the current URL
-    const href = new URL(window.location.href);
-
-    // Get the ID parameter
-    const id = href.searchParams.get('id');
 
     let url = `https://hk.herova.net/products/cat_p.php?page=${page}`;
     page++;

@@ -22,18 +22,28 @@ const formObject = {};
 
 // image upload functionality
 imageUpload.addEventListener("change", (event) => {
-    files = event.target.files; // Store multiple files
-    if (files.length > 0) {
-    for (let i = 0; i < files.length; i++) {
-      const markup = `
-                <div class="preview">
-                <img src="${URL.createObjectURL(
-                  files[i]
-                )}" alt="product preview">
-                </div>
-      `;
-      imagePreview.insertAdjacentHTML("beforeend", markup);
-    }
+    const newFiles = Array.from(event.target.files); // Store multiple files
+    const bias = files.length;
+    files = files.concat(...newFiles);
+    // console.log(newFiles,files);
+    if (newFiles.length > 0) {
+        for (let i = 0; i < newFiles.length; i++) {
+            const markup = `
+                        <div class="preview" id="preview-${bias+i}">
+                            <a class="close"><i class="fa-solid fa-xmark"></i></a>
+                            <img src="${URL.createObjectURL(
+                            newFiles[i]
+                            )}" alt="product preview">
+                        </div>
+            `;
+            imagePreview.insertAdjacentHTML("beforeend", markup);
+            document.querySelector(`#preview-${bias+i} .close`).addEventListener('click',e=>{
+                const preview = e.target.closest('.preview');
+                preview.remove();
+                files[bias+i] = null;
+                // console.log(files);
+            });
+        }
   }
 });
 
@@ -103,6 +113,8 @@ function collectFormData() {
         }
     }
     //add the images
+    files = files.filter(item => item !== null);
+    console.log(files);
     for (let i = 0; i < files.length; i++) {
         formData.append("photo[]", files[i]); 
     }
@@ -115,17 +127,25 @@ function collectFormData() {
 async function sendImages(fileList) {
     const imageBlobs = [];
     for (let i = 0; i < fileList.length; i++) {
-        imageBlobs.push(fileList[i]);
+        if (fileList[i] !== null) imageBlobs.push(fileList[i]);
     }
 
-    const base64Strings = await Promise.all(imageBlobs.map(async (blob) => {
+    const imageData = await Promise.all(imageBlobs.map(async (blob) => {
         return new Promise((resolve) => {
             const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result.split(',')[1]); // Extract base64 part
+            reader.onloadend = () => {
+                // Store the entire Data URL which includes the MIME type
+                resolve({
+                    dataUrl: reader.result,
+                    type: blob.type,
+                    name: blob.name || `image_${Date.now()}.${blob.type.split('/')[1]}` // Optional: preserve filename
+                });
+            };
             reader.readAsDataURL(blob);
         });
     }));
-    localStorage.setItem('imageBlobs', JSON.stringify(base64Strings));
+    
+    localStorage.setItem('imageBlobs', JSON.stringify(imageData));
     // window.location.href = 'destination.html';
 }
 
@@ -172,6 +192,7 @@ function validateData(){
     delivery_date.setHours(0, 0, 0, 0);
     start_date.setHours(0, 0, 0, 0);
     current_date.setHours(0, 0, 0, 0);
+    console.log(delivery_date,start_date,current_date);
 
     if (delivery_date < current_date){
         inputFields["delivery_date"].parentElement.insertAdjacentHTML("beforeend", `<p class="error">*Delivery date can't be in the past</p>`);
@@ -179,6 +200,14 @@ function validateData(){
     }
     if (delivery_date > start_date){
         inputFields["start_date"].parentElement.insertAdjacentHTML("beforeend", `<p class="error">*Start date can't be before delivery date</p>`);
+        validity = false;
+    }
+    // Calculate the difference in days between delivery and start date
+    const timeDifference = start_date.getTime() - delivery_date.getTime();
+    const dayDifference = timeDifference / (1000 * 3600 * 24);
+
+    if (dayDifference < 3) {
+        inputFields["start_date"].parentElement.insertAdjacentHTML("beforeend", `<p class="error">*There must be at least 3 days between delivery date and start date</p>`);
         validity = false;
     }
     return validity;
@@ -189,56 +218,56 @@ function clearErrors(){
     errors.forEach(error=>error.remove());
 }
 
-async function postData() {
-    const url = "https://hk.herova.net/products/new_Product.php";
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            body: formData,
-        });
+// async function postData() {
+//     const url = "https://hk.herova.net/products/new_Product.php";
+//     try {
+//         const response = await fetch(url, {
+//             method: "POST",
+//             body: formData,
+//         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status},message ${response.message}`);
-        }
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status},message ${response.message}`);
+//         }
 
-        const responseData = await response.json();
-        loaderModal.style.visibility = "hidden";
-        loaderModal.style.display = "none";
-        Swal.fire({
-          icon:"success",
-          title: "Upload success",
-          confirmButtonText: "Retry",
-          html: `
-            <p>your product is being reviewed by the administrator takes one or two days</p>
-            You will be redirected in <strong></strong> seconds.
-            `,
-          timer: 15000, 
-          timerProgressBar: true,
-          didOpen: () => {
-            Swal.showLoading();
-            const b = Swal.getHtmlContainer().querySelector("strong");
-            let timerInterval = setInterval(() => {
-              b.textContent = (Swal.getTimerLeft() / 1000).toFixed(0);
-            }, 100);
-          }
-      }).then((result) => {
-        /* Read more about handling dismissals below */
-        //if (result.dismiss === Swal.DismissReason.timer) {
-          window.location.href = "index.php"; // Replace with your URL
-        //}
-      });
-    } catch (error) {
-        // console.log('swal success');
-        Swal.fire({
-            title: "Register Failure",
-            text: error.message,
-            icon: "error",
-            confirmButtonText: "Retry",
-        });
-        loaderModal.style.visibility = "hidden";
-        loaderModal.style.display = "none";
-    }
-}
+//         const responseData = await response.json();
+//         loaderModal.style.visibility = "hidden";
+//         loaderModal.style.display = "none";
+//         Swal.fire({
+//           icon:"success",
+//           title: "Upload success",
+//           confirmButtonText: "Retry",
+//           html: `
+//             <p>your product is being reviewed by the administrator takes one or two days</p>
+//             You will be redirected in <strong></strong> seconds.
+//             `,
+//           timer: 15000, 
+//           timerProgressBar: true,
+//           didOpen: () => {
+//             Swal.showLoading();
+//             const b = Swal.getHtmlContainer().querySelector("strong");
+//             let timerInterval = setInterval(() => {
+//               b.textContent = (Swal.getTimerLeft() / 1000).toFixed(0);
+//             }, 100);
+//           }
+//       }).then((result) => {
+//         /* Read more about handling dismissals below */
+//         //if (result.dismiss === Swal.DismissReason.timer) {
+//           window.location.href = "index.php"; // Replace with your URL
+//         //}
+//       });
+//     } catch (error) {
+//         // console.log('swal success');
+//         Swal.fire({
+//             title: "Register Failure",
+//             text: error.message,
+//             icon: "error",
+//             confirmButtonText: "Retry",
+//         });
+//         loaderModal.style.visibility = "hidden";
+//         loaderModal.style.display = "none";
+//     }
+// }
 
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -248,7 +277,7 @@ submitBtn.addEventListener("click", (e) => {
     if (validity){
         loaderModal.style.visibility = "visible";
         loaderModal.style.display = "block";
-        window.location.href = 'seller_payment.php'
+        window.location.href = 'seller_payment.php';
         // postData();
     }
 });

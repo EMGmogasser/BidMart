@@ -256,3 +256,16 @@
     gap: 60px;
   }
 }
+
+a.active .cat{
+  background-color: var(--primary);
+  border: 2px solid black;
+}
+
+a.active img{
+  filter: invert(1) brightness(2);
+}
+
+a.active p{
+  color: white;
+}

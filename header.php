@@ -31,7 +31,7 @@
             <i class="fa-solid fa-bars fa-2x"></i>
         </div>
         <nav class="navbar">
-            <a class="nav-item" href="index.php">Home</a>
+            <a class="nav-item" href="index.php" id="index.php">Home</a>
             <div class="custom-select" id="customSelect" tabindex="0">
                 <!-- Custom button mimicking the select -->
                 <a type="button" id="customSelectButton">
@@ -50,9 +50,9 @@
                     <option value="option3">Option 3</option>
                 </select>
             </div>
-            <a class="nav-item" href="products.php" class="active">Bids</a>
-            <a class="nav-item" href="test.php">About us</a>
-            <a class="nav-item upload-product" href="signup_bid.php">Add Product</a>
+            <a class="nav-item" href="products.php" id="products.php">Bids</a>
+            <a class="nav-item" href="test.php" id="test.php">About us</a>
+            <a class="nav-item upload-product" href="signup_bid.php" id="place_bid.php">Add Product</a>
             <a class="nav-item" id='logout-anchor' onclick='logout()'>
             <i class="fa-solid fa-right-from-bracket"></i>
             Log out

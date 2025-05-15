@@ -10,25 +10,23 @@ let formData;
 proceedBtn.addEventListener('click',processPayment)
 
 async function receiveImages() {
-    const base64Strings = JSON.parse(localStorage.getItem('imageBlobs'));
-    if (base64Strings) {
-        const imageBlobs = base64Strings.map((base64) => {
-            const byteCharacters = atob(base64);
-            const byteArrays = [];
-            for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-                const slice = byteCharacters.slice(offset, offset + 512);
-                const byteNumbers = new Array(slice.length);
-                for (let i = 0; i < slice.length; i++) {
-                    byteNumbers[i] = slice.charCodeAt(i);
-                }
-                const byteArray = new Uint8Array(byteNumbers);
-                byteArrays.push(byteArray);
-            }
-            return new Blob(byteArrays, { type: 'image/jpeg' }); // Adjust type as needed
-        });
-        // Use imageBlobs
-        return imageBlobs;
-    }
+    const storedData = localStorage.getItem('imageBlobs');
+    if (!storedData) return [];
+    
+    const imageData = JSON.parse(storedData);
+    return imageData.map(item => {
+        // You can use the dataUrl directly in img src attributes
+        // Or if you need a File/Blob object:
+        const byteString = atob(item.dataUrl.split(',')[1]);
+        const mimeType = item.type;
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], { type: mimeType });
+    });
+    
 }
 
 function objectToFormData(obj) {
@@ -45,6 +43,7 @@ async function prepareProduct(){
     const formObject = await JSON.parse(localStorage.getItem("product"));
     calcFees(formObject);
     const images = await receiveImages();
+    console.log(images);
     formData = objectToFormData(formObject);
     for (let i = 0; i < images.length; i++) {
         formData.append("photo[]", images[i]); 
@@ -56,27 +55,31 @@ async function prepareProduct(){
 function calcFees(formObject){
     const distance = Math.round(+JSON.parse(formObject.location).distance);
     const distanceFeesEGP = distance < 3 ?  15 : distance < 6 ? 20 : distance < 10 ? 30 : distance < 15 ? 40 : distance < 50 ? distance.toFixed(0) * 3 : distance.toFixed(0) * 2.85;   
-    const distanceFeesUSD = distanceFeesEGP / 50;
-    const priceFees = ((+formObject.starting_price + +formObject.expected_price)/2) * 0.05;
+    // const distanceFeesUSD = distanceFeesEGP / 50;
+    const distanceFeesUSD = 100;
+    // const priceFees = ((+formObject.starting_price + +formObject.expected_price)/2) * 0.05;
+    const priceFees = 50;
     basicFeesDOM.textContent = (parseFloat(priceFees) + parseFloat(distanceFeesUSD)).toFixed(2) + '$';
-    taxFeesDOM.textContent = ((parseFloat(priceFees) + parseFloat(distanceFeesUSD))*0.025).toFixed(2) + '$';
-    totalFeesDOM.textContent = ((parseFloat(priceFees) + parseFloat(distanceFeesUSD))*1.025).toFixed(2) + '$';
+    taxFeesDOM.textContent = ((parseFloat(priceFees) + parseFloat(distanceFeesUSD))*0.1).toFixed(2) + '$';
+    totalFeesDOM.textContent = ((parseFloat(priceFees) + parseFloat(distanceFeesUSD))*1.1).toFixed(2) + '$';
     console.log(`distance fees : ${distanceFeesUSD} USD , product fees : ${priceFees} USD`);
 }
 
 async function processPayment(){
     loaderModal.style.visibility = "visible";
     loaderModal.style.display = "block";
-    const uploaded = postData(formData);
+    // const uploaded = postData(formData);
     const userName = await helper.getCookie('USER_NAME');
     console.log(userName);
-    if (uploaded) {
+    // if (uploaded) {
         const url = `https://hk.herova.net/payment/pay4new.php?name=${userName}&price=${+totalFeesDOM.textContent.slice(0, -1)}`;
         window.location.href=url;
-    }
+    // }
 }
 
 async function postData(formData) {
+    console.log(formData);
+    // console.log(formData.get(photo));
     const url = "https://hk.herova.net/products/new_Product.php";
     try {
         const response = await fetch(url, {

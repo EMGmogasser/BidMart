@@ -5,12 +5,12 @@ use GuzzleHttp\Client;
 
 $client = new Client();
 // تحميل ملف .env
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable('../'); // تأكد من أن المسار صحيح
 $dotenv->load();
 
 // إعداد المتغيرات من ملف .env
-$secretKey = $_ENV['STRIPE_SECRET_KEY'];
-$merchantId = $_ENV['MERCHANT_ID'];
+$secretKey = $_ENV['TAP_SECRET_KEY'];
+// $merchantId = $_ENV['MERCHANT_ID'];
 
 // بيانات الدفع
 $endpoint = 'https://api.tap.company/v2/charges/';
@@ -71,6 +71,11 @@ try {
         echo 'Payment successful, but no redirect URL was provided.';
     }
 } catch (\GuzzleHttp\Exception\RequestException $e) {
-    echo 'Request error: ' . $e->getMessage();
+    if ($e->hasResponse()) {
+        echo 'Status Code: ' . $e->getResponse()->getStatusCode() . "<br>";
+        echo 'Response Body: ' . $e->getResponse()->getBody();
+    } else {
+        echo 'Request error: ' . $e->getMessage();
+    }
 }
 ?>

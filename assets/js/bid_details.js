@@ -58,7 +58,9 @@ async function fetchProduct() {
 
     const res = await response.json();
     if (res) {
+      console.log(res.data.PHOTO);
       const photo = (JSON.parse(res.data.PHOTO) && JSON.parse(res.data.PHOTO)[0] !== undefined)? JSON.parse(res.data.PHOTO)[0] : "assets/img/product.png";
+      poster.querySelector('.img').href = photo ;
       posterImg.src = photo ;
       posterImg.addEventListener("load", () => {
         posterImg.parentElement.classList.remove("loading-img");

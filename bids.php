@@ -85,10 +85,10 @@
 
     <!-- poster -->
     <div class="poster">
-        <div class="img loading-img">
+        <a class="img loading-img" href="" target="_blank">
             <div class="spinner"></div>
             <img src=""  loading="lazy" style="visibility:hidden;">
-        </div>
+        </a>
         <div class="content">
             <h2 class="title"></h2>
             <div class="description">

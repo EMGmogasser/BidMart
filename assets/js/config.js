@@ -4,6 +4,9 @@ const otpAPI = "https://hk.herova.net/login_API/SendOTP.php";
 const verifyOtpAPI = "https://hk.herova.net/login_API/verfiyOTP.php";
 const newsAPI = "https://hk.herova.net/InPageApi/news-api.php?page=1&limit=10";
 
+const href = new URL(window.location.href);
+const id = href.searchParams.get('id');
+
 // const proxySignupAPI =
   "https://cors-anywhere.herokuapp.com/https://hk.herova.net/login_API/signUp-api.php";
 // const proxyOtpAPI =
@@ -252,10 +255,11 @@ export const helper = {
 
   setCategoriesDOM:async function(container) {
     const categories = await helper.getCategories();
+    console.log(id);
     categories.forEach(cat=>{
       const markup = `
-                  <a href="products.php?id=${cat.CAT_ID}">
-                      <div class="cat">
+                  <a href="products.php?id=${cat.CAT_ID}" class = ${id == cat.CAT_ID? 'active':''} >
+                      <div class="cat" id="${cat.CAT_ID}">
                           <img src="${cat.IMG}" alt="${cat.CAT_NAME} | BidMart" loading="lazy">
                           <p>${cat.CAT_NAME}</p>
                       </div>
