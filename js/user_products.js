@@ -20,7 +20,7 @@ async function fetchProducts() {
 
 async function displayProducts() {
   const products = await fetchProducts();
-  const productsContainer = document.getElementById('toggle3');
+  const productsContainer = document.querySelector('.myOrders');
   productsContainer.innerHTML = '';
 
   if (products.length > 0) {
@@ -88,13 +88,13 @@ async function displayProducts() {
         productElement.querySelector('.endBtn').addEventListener('click', (e) => {
           e.stopPropagation();
           e.preventDefault();
-          handleAction(product, 'end');
+          handleAction(product, 'ended');
         });
 
         productElement.querySelector('.cancelBtn').addEventListener('click', (e) => {
           e.stopPropagation();
           e.preventDefault();
-          handleAction(product, 'cancel');
+          handleAction(product, 'canceled');
         });
       }
 
@@ -107,12 +107,12 @@ async function displayProducts() {
 
 function handleAction(product, actionType) {
   const messages = {
-    cancel: {
+    canceled: {
       title: 'Are you sure you want to cancel?',
       text: 'If you cancel, 25% of the amount you paid will be deducted.',
       icon: 'warning'
     },
-    end: {
+    ended: {
       title: 'End Auction?',
       text: 'Are you sure you want to end this auction?',
       icon: 'question'
@@ -157,14 +157,22 @@ async function sendActionRequest(product, password, actionType) {
       didOpen: () => Swal.showLoading()
     });
 
-    const formData = new FormData();
-    formData.append('item_id', product.I_ID);
-    formData.append('password', password);
-    formData.append('action_type', actionType);
+    // const formData = new FormData();
+    // formData.append('I_ID', product.I_ID);
+    // formData.append('PASSWORD', password);
+    // formData.append('STATUS', actionType);
+    const dataObj = {
+      I_ID:product.I_ID,
+      PASSWORD:password,
+      STATUS:actionType
+    }
 
-    const response = await fetch('https://hk.herova.net/update-item-status', {
+    const response = await fetch('https://hk.herova.net/data/p_status.php', {
       method: 'POST',
-      body: formData,
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataObj),
       credentials: 'include'
     });
 

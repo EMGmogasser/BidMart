@@ -53,8 +53,8 @@ async function prepareProduct(){
 } 
 
 function calcFees(formObject){
-    const distance = Math.round(+JSON.parse(formObject.location).distance);
-    const distanceFeesEGP = distance < 3 ?  15 : distance < 6 ? 20 : distance < 10 ? 30 : distance < 15 ? 40 : distance < 50 ? distance.toFixed(0) * 3 : distance.toFixed(0) * 2.85;   
+    // const distance = Math.round(+JSON.parse(formObject.location).distance);
+    // const distanceFeesEGP = distance < 3 ?  15 : distance < 6 ? 20 : distance < 10 ? 30 : distance < 15 ? 40 : distance < 50 ? distance.toFixed(0) * 3 : distance.toFixed(0) * 2.85;   
     // const distanceFeesUSD = distanceFeesEGP / 50;
     const distanceFeesUSD = 100;
     // const priceFees = ((+formObject.starting_price + +formObject.expected_price)/2) * 0.05;
@@ -101,32 +101,23 @@ async function postData(formData) {
             <p>your product is being reviewed by the administrator takes one or two days</p>
             You will be redirected in <strong></strong> seconds.
             `,
-            // timer: 10000, 
-            // timerProgressBar: true,
-            // didOpen: () => {
-            //     Swal.showLoading();
-            //     const b = Swal.getHtmlContainer().querySelector("strong");
-            //     let timerInterval = setInterval(() => {
-                //     b.textContent = (Swal.getTimerLeft() / 1000).toFixed(0);
-                //     }, 100);
-                // }
             }).then((result) => {
                 window.location.href = "index.php"; // Replace with your URL
                 //}
             });
             return true;
-        } catch (error) {
-            // console.log('swal success');
-            Swal.fire({
-                title: "Register Failure",
-                text: error.message,
-                icon: "error",
-                confirmButtonText: "Retry",
-            });
-            loaderModal.style.visibility = "hidden";
-            loaderModal.style.display = "none";
-            return false;
-        }
-    }        
+    } catch (error) {
+        // console.log('swal success');
+        Swal.fire({
+            title: "Register Failure",
+            text: error.message,
+            icon: "error",
+            confirmButtonText: "Retry",
+        });
+        loaderModal.style.visibility = "hidden";
+        loaderModal.style.display = "none";
+        return false;
+    }
+}        
     
-    prepareProduct();
+prepareProduct();

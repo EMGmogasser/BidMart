@@ -3,11 +3,37 @@
     <title>Reciet</title>
     <link rel="icon" href="assets/img/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- QR code cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+
+    <script defer type="module" src='assets/js/reciet.js'></script>
     <style>
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+         }
         .logo{
             display: flex;
             justify-content: center;
@@ -42,7 +68,7 @@
             text-align:center;
             text-transform: uppercase;
         }
-        .DECLINED{
+        .DECLINED,.DUPLICATE{
             color:red;
         }
         button{
@@ -63,13 +89,31 @@
                 gap: 10px;
             }
         }
+        button:disabled{
+            background-color:gray;
+        }
+        button:disabled:hover{
+            background-color:gray;
+        }
+        .qr-code-container{
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 
 <body>
+    <!-- loader -->
+    <div class="full-c" style="">
+        <div id="loader" style="display: block;">
+            <div class="spinner"></div>
+            <p> Loading . . .</p>
+        </div>
+    </div>
     <div class="reciet">
         <div class="logo"><img src="assets/img/logo.png" alt=""></div>
         <h2 class="status"></h2>
+        <div class="qr-code-container"></div>  
         <div class="details">
             <ul> 
                 <li>
@@ -94,46 +138,6 @@
                 </li>
             </ul>
         </div>
-        <button  class="primary-btn">Proceed</button>
+        <button  class="primary-btn proceed" disabled>Proceed</button>
     </div>
 </body>
-
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const tap_id = params.get('tap_id');
-    const url=`https://hk.herova.net/payment/ret_pay.php?tap_id=${tap_id}`;
-    const status = document.querySelector('.status');
-    const id = document.querySelector('.id');
-    const user = document.querySelector('.user');
-    const amount = document.querySelector('.amount');
-    const fees = document.querySelector('.fees');
-    const total = document.querySelector('.total');
-    const currency = document.querySelector('.currency');
-
-    const proceedBtn = document.querySelector('button');
-    proceedBtn.addEventListener('click', () => {
-        window.location.href = `${localStorage.getItem('currentPage')}`;
-    });
-
-    async function recietDetails(){
-        const res = await fetch(url);
-        const data = await res.json();
-
-        const reciet = {
-            id:data.id,
-            status:data.status,
-            amount:data.amount,
-            currency:data.currency,
-        };
-        status.textContent = "payment "+ reciet.status;
-        status.classList.add(reciet.status);
-        id.textContent = reciet.id;
-        user.textContent = data.customer.first_name;
-        amount.textContent = reciet.amount/1.05+" "+ reciet.currency;
-        fees.textContent = reciet.amount/1.05*0.05+" "+ reciet.currency;
-        total.textContent = reciet.amount+" "+ reciet.currency;
-
-        console.log(data);
-    }
-    recietDetails();
-</script>

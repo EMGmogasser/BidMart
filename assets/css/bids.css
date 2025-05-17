@@ -149,7 +149,7 @@
   font-size: 1.15rem;
   font-weight: bold;
 }
-.poster .bidders_number {
+.poster .bidders_number,.poster .enrolls {
   font-weight: bold;
   color: var(--primary);
 }
@@ -242,7 +242,7 @@
     width: 100%;
     margin-bottom: 10px;
   }
-  .poster .bidders_number,
+  .poster .bidders_number,.poster .enrolls,
   .poster a {
     margin: auto;
   }

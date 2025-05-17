@@ -15,12 +15,16 @@
     <!-- Swiper.js CSS CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.2/swiper-bundle.min.css">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.2/swiper-bundle.min.js"></script>
-
+    <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <!-- css -->
     <link rel="stylesheet" href="assets/css/components/swiper.css">
     <link rel="stylesheet" href="assets/css/components/products.css">
-    <link rel="stylesheet" href="assets/css/bids.css">
     <link rel="stylesheet" href="assets/css/master.css">
+    <link rel="stylesheet" href="assets/css/bids.css">
 
     <!-- JS -->
     <script defer src="assets/js/components/swiper.js"></script>
@@ -77,6 +81,126 @@
             text-decoration:underline
         }
     </style>
+    <!-- swipers style -->
+     <style>
+        .images {
+            width: 30%;
+        }
+        .images .mySwiper2{
+            box-shadow: var(--shadow);
+            border-radius: 15px;
+        }
+        .images .swiper-button-next,.images .swiper-button-prev{
+            height: 100%;
+            top: 0;
+            right: 0;
+            width: 20%;
+            margin:unset;
+        }
+        .images .swiper-button-next:hover,.images .swiper-button-prev:hover{
+            background-color: #ffffff8c;
+        }
+        .images .swiper-button-next:hover:after,.images .swiper-button-prev:hover:after{
+            color:var(--primary);
+        }
+        .images .swiper-button-prev{
+            left:0;
+        }
+        .images .swiper-button-prev:after,.images .swiper-button-next:after{
+            font-size:25px;
+            font-weight: bolder;
+        }
+        .swiper-wrapper{
+            min-height: unset;
+            width: fit-content;
+            max-width:100%
+        }
+        .images .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .images .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .images .mySwiper .swiper-slide img,.images .mySwiper2 {
+            border:2px solid var(--primary);
+
+        }
+        .images .swiper-slide img {
+            border-radius: 15px;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .images .swiper {
+            width: 100%;
+            height:fit-content;
+            max-height: 350px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .images .swiper-slide {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .images .mySwiper2 {
+            height: 80%;
+            width: 100%;
+        }
+
+        .images .mySwiper {
+            height: 20%;
+            box-sizing: border-box;
+            padding: 10px 0;
+        }
+
+        .images .mySwiper .swiper-slide {
+            width: 100px;
+            height: 100%;
+            max-height:150px;
+            opacity: 0.4;
+        }
+
+        .images .mySwiper .swiper-slide-thumb-active {
+            opacity: 1;
+        }
+
+        .images .swiper-slide img {
+            display: block;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .images .mySwiper .swiper-slide img {
+            max-height:120px;
+            width: 100px;
+        }
+        @media (max-width: 767px) {
+            .images {
+                width: 70%;
+            }
+        }
+        @media (max-width: 400px) {
+            .images .swiper-button-next,.images .swiper-button-prev{
+                visibility:hidden;
+            }
+        }
+        button:disabled,button:disabled:hover{
+            background:gray;
+        }
+        </style>
 </head>
 
 <body>
@@ -85,47 +209,82 @@
 
     <!-- poster -->
     <div class="poster">
-        <a class="img loading-img" href="" target="_blank">
+        <!-- <a class="img loading-img" href="" target="_blank">
             <div class="spinner"></div>
             <img src=""  loading="lazy" style="visibility:hidden;">
-        </a>
+        </a> -->
+        <div class="images">
+            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                <div class="swiper-wrapper poster-images">
+                    
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            <div thumbsSlider="" class="swiper mySwiper">
+                <div class="swiper-wrapper poster-thumbnails">
+                    
+                </div>
+            </div>
+        </div>
         <div class="content">
             <h2 class="title"></h2>
             <div class="description">
                 <span class="fixed">Description : </span>
-                <span class="text"> </span>
+                <span class="text"> N/A</span>
             </div>
             <div class="start_date">
                 <span class="fixed"> Start Date : </span>
-                <span class="text"></span>
+                <span class="text">N/A</span>
             </div>
             <div class="start_price">
                 <span class="fixed">start bid : </span>
-                <span class="text"></span>
+                <span class="text">N/A</span>
             </div>
             <div class="current_price">
                 <span class="fixed">current price : </span>
-                <span class="text"></span>
+                <span class="text">N/A</span>
             </div>
             <div class="end_date">
                 <span class="fixed"> End Date : </span>
-                <span class="text"></span>
+                <span class="text">N/A</span>
+            </div>
+            <div class="enrolls">
+                *<span class="text">0</span>
+                <span class="fixed">Person enrolled</span>
             </div>
             <div class="bidders_number">
-                *<span class="text">15</span>
-                <span class="fixed">people enrolled in</span>
+                *<span class="text">0</span>
+                <span class="fixed">Bidding process</span>
             </div>
-            <a href="#" class="primary-btn enroll">Enroll Now</a>
+            <div class="actin-buttons">
+                <button href="#" class="primary-btn enroll" disabled>Enroll</button>
+                <button href="#" class="primary-btn bid"disabled>Bid!</button>
+            </div>
         </div>
 
     </div>
 
     <!-- modal -->
-    
-    <div class="full-c" style="display:none;">
+    <div class="full-c enroll" style="display:none;">
         <div id="loader" style="display: block;">
             <button class="close">x</button>
-            <p >The highest bid for this product currently is <span class="price">500$</span></p>
+            <p >The Bid insurance to enroll is <span class="price">200$</span></p>
+            <ul class="note">
+                <li>you must enter a number larger than the highlighted number</li>
+                <li>A tax fee of 5% will be added to the number you enter</li>
+                <li>In case you are the highest bidder anw want to cancel 20% of the money won't be refunded</li>
+                <li>For more detailes check the <a href="bid_rules.php">bid rules</a> <br>or <a href="contact_us.php">contact us</a></li>
+            </ul>
+            <!-- <input type="number" name="bid" id="bidAmount" class="bidAmount" placeholder="Your bid">   
+            <p style="font-size: 0.9rem;">This price may change after (<span class="timer">7</span>s)</p>  -->
+            <button class="enrollBtn primary-btn">Enroll</button>        
+        </div>
+    </div>
+    <div class="full-c bid" style="display:none;">
+        <div id="loader" style="display: block;">
+            <button class="close">x</button>
+            <p >The Bid insurance to enroll is <span class="price">200$</span></p>
             <ul class="note">
                 <li>you must enter a number larger than the highlighted number</li>
                 <li>A tax fee of 5% will be added to the number you enter</li>

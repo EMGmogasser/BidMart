@@ -14,6 +14,7 @@ const profile = document.querySelector(".bottom-nav .profile");
 const profileName = document.querySelector(".bottom-nav .profile p");
 const redirectBtn1 = document.querySelector(".redirect1");
 const uploadProductAnchor = document.querySelector(".upload-product");
+const posterBtn = document.querySelector('.ads_cont a.main-button')
 
 // categories constants
 const customSelect 	= document.getElementById("customSelect");
@@ -82,6 +83,10 @@ async function setUserProfile() {
         : userProfile === "buyer-NA"
         ? "Join now !"
         :  "Add Yours !";
+    if (userProfile.includes('seller')){
+      console.log('spy caught');
+      posterBtn.style.display = 'none';
+    }
   }
   if (cookies.USER_NAME) {
     loginBtn.innerHTML = cookies.USER_NAME;

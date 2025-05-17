@@ -23,6 +23,55 @@
         .hidden {
             display: none;
         }
+
+        .myOrders{
+            flex-grow: 1;
+            /* cursor: pointer; */
+            max-height: 500px;
+            overflow-y: scroll;
+            padding: 20px;
+            border: 1px solid #2f4f4f61;
+            scrollbar-width: none;
+            border-radius: 30px;
+            -ms-overflow-style: none;
+            box-shadow: inset 0 0 11px 0px var(--background-negative);
+        }   
+        .myOrders::-webkit-scrollbar {
+            display: none;            /* Chrome, Safari, Edge */
+        }
+
+        .orderdetails{
+            width: 100%;
+        }
+
+        #toggle1{
+            width: 90vw;
+            max-width: 800px;
+            display: flex;
+            gap: 40px;
+        }
+        #toggle1.hidden{
+            display:none;
+        }
+
+
+        #product-filter{
+            /* position: sticky; */
+            margin-top: 60px;
+            height: fit-content;
+            top: 35vh;
+            display: flex;
+            flex-direction: column;
+            width: fit-content;
+            padding: 20px;
+            background: var(--background);
+            border: 1px solid #2f4f4f61;
+            box-shadow: var(--shadow);
+            border-radius: 20px;
+            gap: 20px;
+        }
+
+
     </style>
 </head>
 
@@ -30,16 +79,18 @@
     <?php include_once "header.php"; ?>
     <div class="account">
         <div class="swap">
-            <a class="info active" onclick="swapping(1)" href="#toggle1" data-toggle="list">Account</a>
+            <a class="info" onclick="swapping(3)" href="#toggle3" data-toggle="list"  style='color:var(--text-color);'>Account</a>
             <div class="vertical"></div>
-            <a class="balance" onclick="swapping(2)" href="#toggle2" data-toggle="list">Balance</a>
+            <a class="balance" onclick="swapping(2)" href="#toggle2" data-toggle="list" style='color:var(--text-color);'>Balance</a>
             <div class="vertical"></div>
-            <a class="orders" onclick="swapping(3)" href="#toggle3" data-toggle="list">Products</a>
+            <a class="orders active" onclick="swapping(1)" href="#toggle1" data-toggle="list">Products</a>
         </div>
 
         <!-- Account Section -->
-        <div class="form" id="toggle1">
-            <img class="user" src="" id="photo" alt="user">
+        <div class="form hidden" id="toggle3">
+            <div class="pfp" id="photo">
+                <img class="user" src=""  alt="user">
+            </div>
             <form id="signup" action="" method="post">
                 <div class="input-container">
                     <i class="far fa-user"></i>
@@ -161,13 +212,28 @@
         </div>
 
         <!-- Products Section -->
-       <div class="myOrders hidden" id="toggle3" style="cursor:pointer;">
-       
+        <div id="toggle1" >
+            <div id="product-filter">
+                <label >
+                    <input type="radio" checked name="filter" value="uploaded" />
+                    <span>Uploaded</span>
+                </label>
+
+                <label >
+                    <input type="radio" name="filter" value="enrolled" />
+                    <span>Enrolled in</span>
+                </label>
+            </div>
+
+            <div class="myOrders" style="cursor:pointer;">
+             
+             </div>
         </div>
    
 
     <script>
         function swapping(divNumber) {
+            window.scrollTo(0, 0);
             const elements = {
                 1: document.getElementById("toggle1"),
                 2: document.getElementById("toggle2"),
@@ -175,20 +241,21 @@
             };
 
             const links = {
-                1: document.querySelector('body > div.account > div.swap > a.info'),
+                1: document.querySelector('body > div.account > div.swap > a.orders'),
                 2: document.querySelector('body > div.account > div.swap > a.balance'),
-                3: document.querySelector('body > div.account > div.swap > a.orders'),
+                3: document.querySelector('body > div.account > div.swap > a.info'),
             };
 
             // Hide all elements and reset link colors
             Object.values(elements).forEach(el => el.classList.add("hidden"));
-            Object.values(links).forEach(link => link.style.color = "black");
+            Object.values(links).forEach(link => link.style.color = "var(--text-color)");
 
             // Show the selected element and highlight the link
             if (elements[divNumber]) {
                 elements[divNumber].classList.remove("hidden");
                 links[divNumber].style.color = "#d56b00";
             }
+            window.scrollTo(0, 0);
         }
     </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

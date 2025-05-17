@@ -702,7 +702,15 @@ p.news-word {
 
 @media (max-width: 780px) {
   .custom-select{
+    width: 100%;
+    /* height: min-content; */
+    /* padding-block: 15px; */
+    text-align: center;
     position:unset;
+  }
+  .custom-select a{
+    width: 100%;
+    display: block;
   }
   .custom-select .arrow {
     display:none;

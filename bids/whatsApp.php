@@ -11,7 +11,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 require '../vendor/autoload.php';
 require '../includes/DB-con.php'; // Database connection
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable('../'); // Ensure the path is correct
 $dotenv->load();
 
 header('Content-Type: application/json'); // Set response type to JSON

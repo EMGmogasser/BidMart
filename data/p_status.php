@@ -77,7 +77,7 @@ try {
 
         $item = $result->fetch_assoc();
         $starting_price = $item['STARTING_PRICE'];
-        $penalty = $starting_price * 0.2; // حساب 20% من السعر
+        $penalty = $starting_price * 0.25; // حساب 25% من السعر
 
         // تحديث الرصيد في جدول USER
         $new_balance = $user['BALANCE'] - $penalty;
@@ -88,13 +88,11 @@ try {
         }
 
         // إضافة سجل جديد إلى جدول PAYMENTS
-        $stmt = $conn->prepare("INSERT INTO PAYMENTS (REASON, USER_ID, DONE) VALUES ('Cancellation Fee', ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO PAYMENTS (REASON, USER_ID, AMOUNT) VALUES ('Cancellation Fee', ?, ?)");
         $stmt->bind_param("id", $user_id, $penalty);
         if (!$stmt->execute()) {
             sendResponse("error", 500, "Failed to insert payment record.");
         }
-
-        sendResponse("success", 200, "Item canceled. 20% penalty applied.");
     }
 
 
@@ -104,7 +102,7 @@ try {
     $update_stmt->bind_param("si", $status, $item_id);
 
     if ($update_stmt->execute()) {
-        sendResponse("success", 200, "Item status updated successfully.");
+        sendResponse("success", 200, "Item status (". $status .") updated successfully.");
     } else {
         sendResponse("error", 500, "Failed to update item status.");
     }

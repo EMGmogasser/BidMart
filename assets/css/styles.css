@@ -19,6 +19,13 @@
   --theme-transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
   --font-montserrat: "Montserrat", sans-serif;
 }
+img,
+svg,
+button,
+.icon{
+  user-select: none;
+}
+
 
 * {
   margin: 0;

@@ -5,11 +5,11 @@ use GuzzleHttp\Client;
 
 $client = new Client();
 // تحميل ملف .env
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable('../'); // تأكد من أن المسار صحيح
 $dotenv->load();
 
 // إعداد المتغيرات من ملف .env
-$secretKey = $_ENV['STRIPE_SECRET_KEY'];
+$secretKey = $_ENV['TAP_SECRET_KEY'];
 
 $tap_id = isset($_GET['tap_id']) ? htmlspecialchars($_GET['tap_id']) : '';
 

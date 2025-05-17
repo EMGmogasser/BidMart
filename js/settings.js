@@ -52,7 +52,7 @@ function populateForm(userData) {
         if (element) element.value = value;
     });
 
-    const photoElement = document.getElementById('photo');
+    const photoElement = document.querySelector('#photo img');
     if (photoElement) {
         photoElement.src = userData.PHOTO || DEFAULT_PROFILE_IMAGE;
         photoElement.onerror = function() {
@@ -261,7 +261,7 @@ async function changeProfilePhoto(file) {
         const formData = new FormData();
         formData.append('photo', file);
 
-        const photoElement = document.getElementById('photo');
+        const photoElement = document.querySelector('#photo img');
         if (photoElement) photoElement.style.opacity = '0.5';
 
         const response = await fetch("https://hk.herova.net/data/change_photo.php", {
@@ -286,7 +286,7 @@ async function changeProfilePhoto(file) {
         console.error('❌ Photo upload error:', error);
         alert(`Photo upload failed: ${error.message}`);
     } finally {
-        const photoElement = document.getElementById('photo');
+        const photoElement = document.querySelector('#photo img');
         if (photoElement) photoElement.style.opacity = '1';
     }
 }

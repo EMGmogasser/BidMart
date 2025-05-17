@@ -39,7 +39,7 @@ async function setProductsData() {
   const currentBids = await fetchProductData(1);
   helper.renderSwiperData(currentBidsContainer, currentBids);
 
-  const trendingBids = await fetchProductData(3);
+  const trendingBids = await fetchProductData(1);
   helper.renderSwiperData(trendingBidsContainer, trendingBids);
 
   const endedBids = await fetchProductData(3);
